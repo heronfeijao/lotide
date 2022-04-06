@@ -19,7 +19,7 @@ const assertArraysEqual = (arr1, arr2) => {
 };
 
 
-const array = [1, 2, [3, 4], 5, [6]] // => [1, 2, 3, 4, 5, 6]
+const array = [1, 2, [3, 4], 5, [6]]; // => [1, 2, 3, 4, 5, 6]
 
 const flatten = (arr) => {
   let newArr = [];
@@ -27,16 +27,16 @@ const flatten = (arr) => {
   for (let elem of arr) {
     if (Array.isArray(elem)) {
       elem.forEach(element => {
-        newArr.push(element)
+        newArr.push(element);
       });
     } else {
       newArr.push(elem);
     }
   }
-  return newArr
-}
+  return newArr;
+};
 
-console.log(flatten(array))
+console.log(flatten(array));
 
 /* *** RECURSION ***
 const flatten = function (array1) {
