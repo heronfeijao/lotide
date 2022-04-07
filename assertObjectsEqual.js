@@ -52,3 +52,4 @@ const assertObjectsEqual = function(obj1, obj2) {
 };
 
 assertObjectsEqual({ c: "1", d: ["2", 3] } , { c: "1", d: [2, 3] });
+assertObjectsEqual({ c: "1", d: ["2", 3] } , { c: "1", d: ["2", 3] });
