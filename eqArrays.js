@@ -20,10 +20,7 @@ const eqArrays = (arr1, arr2) => {
     return false;
   }
 
-  // console.log(arr1,arr2);
-
   for (let i = 0; i < arr1.length; i++) {
-    // console.log('1 ',arr1[i],arr2[i]);
     if (Array.isArray(arr1[i]) && Array.isArray(arr2[i])) {
       eqArrVar = eqArrays(arr1[i], arr2[i]);
       if (!eqArrVar) {
@@ -32,7 +29,6 @@ const eqArrays = (arr1, arr2) => {
     } else if (arr1[i] !== arr2[i]) {
       return false;
     }
-    // console.log('2 ',arr1[i],arr2[i]);
   }
   return true;
 };
