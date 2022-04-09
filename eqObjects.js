@@ -7,7 +7,7 @@ const assertEqual = (actual, expected) => {
   console.log(`⛔️ Assertion Failed: ${actual} !== ${expected}`);
 };
 
-//eqArrays
+// *** eqArrays ***
 
 const eqArrays = (arr1, arr2) => {
   if (!(arr1.length === arr2.length)) {
@@ -21,7 +21,41 @@ const eqArrays = (arr1, arr2) => {
   return true;
 };
 
+
+// *** OLD CODE WITH OBJECT FIRST ***
+// const eqObjects = (object1, object2) => {
+//   let eqObjVar;
+
+//   const obj1 = Object.keys(object1);
+//   const obj2 = Object.keys(object2);
+
+//   if (obj1.length !== obj2.length) {
+//     return false;
+//   }
+
+//   for (let elem in object1) {
+//     if ((typeof object1[elem] === 'object') && (typeof object2[elem] === 'object')) {
+//       eqObjVar = eqObjects(object1[elem], object2[elem]);
+//       if (!eqObjVar) {
+//         return false;
+//       }
+//     } else {
+//       if (Array.isArray(object1[elem]) && Array.isArray(object2[elem])) {
+//         const arrayValue = eqArrays(object1[elem], object2[elem]);
+//         if (!arrayValue) {
+//           return false;
+//         }
+//       }
+//       if (object1[elem] !== object2[elem]) {
+//         return false;
+//       }
+//     }
+//   }
+//   return true;
+// };
+
 const eqObjects = (object1, object2) => {
+  let eqObjVar;
 
   const obj1 = Object.keys(object1);
   const obj2 = Object.keys(object2);
@@ -31,23 +65,18 @@ const eqObjects = (object1, object2) => {
   }
 
   for (let elem in object1) {
-    if ((typeof object1[elem] === 'object') && (typeof object2[elem] === 'object')) {
-      const obj3 = Object.keys(object1[elem]);
-      const obj4 = Object.keys(object2[elem]);
-    
-      if (obj3.length !== obj4.length) {
+    if (Array.isArray(object1[elem]) && Array.isArray(object2[elem])) {
+      const arrayValue = eqArrays(object1[elem], object2[elem]);
+      if (!arrayValue) {
         return false;
       }
-
-      eqObjects(object1[elem], object2[elem]);
     } else {
-      if (Array.isArray(object1[elem]) && Array.isArray(object2[elem])) {
-        const arrayValue = eqArrays(object1[elem], object2[elem]);
-        if (!arrayValue) {
+      if ((typeof object1[elem] === 'object') && (typeof object2[elem] === 'object')) {
+        eqObjVar = eqObjects(object1[elem], object2[elem]);
+        if (!eqObjVar) {
           return false;
         }
-      }
-      if (object1[elem] !== object2[elem]) {
+      } else if (object1[elem] !== object2[elem]) {
         return false;
       }
     }
@@ -76,6 +105,10 @@ const eqObjects = (object1, object2) => {
 // assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), false); // => false
 // assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }), false); // => false
 
-// assertEqual(eqObjects({ a: { z: 1 }, b: 2, c: {d: {e: 2}, f: 5}, g: [1,2,3]}, { a: { z: 1 }, b: 2 }), false); // => false
+// assertEqual(eqObjects({ a: { z: 1 }, b: 2, c: { d: { e: 2 }, f: 5 }, g: [1, 2, 3] }, { a: { z: 1 }, b: 2 }), false); // => false
 
-// assertEqual(eqObjects({ a: { z: 1, x: [1,2,3] }, b: 2, c: {d: {e: 2}, f: 5}, g: [1,2,3]}, { a: { z: 1, x: [1,2,3] }, b: 2, c: {d: {e: 2}, f: 5}, g: [1,2,3]}), true); // => true
+// assertEqual(eqObjects({ a: { z: 1, x: [1, 2, 3] }, b: 2, c: { d: { e: 2 }, f: 5 }, g: [1, 2, 3] }, { a: { z: 1, x: [1, 2, 3] }, b: 2, c: { d: { e: 2 }, f: 5 }, g: [1, 2, 3] }), true); // => true
+
+// assertEqual(eqObjects({ a: { z: 1, x: [1, 2, 3] }, b: 3, c: { d: { e: 2 }, f: 5 }, g: [1, 2, 3] }, { a: { z: 1, x: [1, 2, 3] }, b: 2, c: { d: { e: 2 }, f: 5 }, g: [1, 2, 3] }), false); // => false
+
+// assertEqual(eqObjects({ a: { z: 1, x: [1, 2, 3] }, b: 3, c: { d: { e: 2 }, f: 5 }, g: [1, 2, 1] }, { a: { z: 1, x: [1, 2, 3] }, b: 2, c: { d: { e: 2 }, f: 5 }, g: [1, 2, 3] }), false); // => false
