@@ -30,33 +30,52 @@ const eqObjects = (object1, object2) => {
     return false;
   }
 
-  for (let elem of obj1) {
-
-    if (Array.isArray(object1[elem]) && Array.isArray(object2[elem])) {
-
-      const arrayValue = eqArrays(object1[elem], object2[elem]);
-      if (!arrayValue) {
+  for (let elem in object1) {
+    if ((typeof object1[elem] === 'object') && (typeof object2[elem] === 'object')) {
+      const obj3 = Object.keys(object1[elem]);
+      const obj4 = Object.keys(object2[elem]);
+    
+      if (obj3.length !== obj4.length) {
         return false;
       }
-    } else if (object1[elem] !== object2[elem]) {
-      return false;
+
+      eqObjects(object1[elem], object2[elem]);
+    } else {
+      if (Array.isArray(object1[elem]) && Array.isArray(object2[elem])) {
+        const arrayValue = eqArrays(object1[elem], object2[elem]);
+        if (!arrayValue) {
+          return false;
+        }
+      }
+      if (object1[elem] !== object2[elem]) {
+        return false;
+      }
     }
   }
   return true;
 };
 
-const ab = { a: "1", b: "2" };
-const ba = { b: "2", a: "1" };
-assertEqual(eqObjects(ab, ba),true); // => true
+// const ab = { a: "1", b: "2" };
+// const ba = { b: "2", a: "1" };
+// assertEqual(eqObjects(ab, ba),true); // => true
 
-const abc = { a: "1", b: "2", c: "3" };
-assertEqual(eqObjects(ab, abc),false); // => false
+// const abc = { a: "1", b: "2", c: "3" };
+// assertEqual(eqObjects(ab, abc),false); // => false
 
-const cd = { c: "1", d: ["2", 3] };
-const dc = { d: ["2", 3], c: "1" };
-assertEqual(eqObjects(cd, dc), true); // => true
+// const cd = { c: "1", d: ["2", 3] };
+// const dc = { d: ["2", 3], c: "1" };
+// assertEqual(eqObjects(cd, dc), true); // => true
 
-const cd2 = { c: "1", d: ["2", 3, 4] };
-assertEqual(eqObjects(cd, cd2),false); // => false
+// const cd2 = { c: "1", d: ["2", 3, 4] };
+// assertEqual(eqObjects(cd, cd2), false); // => false
 
-assertEqual(eqObjects(abc, cd2),false); // => false
+// assertEqual(eqObjects(abc, cd2),false); // => false
+
+// assertEqual(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), true); // => true
+
+// assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), false); // => false
+// assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }), false); // => false
+
+// assertEqual(eqObjects({ a: { z: 1 }, b: 2, c: {d: {e: 2}, f: 5}, g: [1,2,3]}, { a: { z: 1 }, b: 2 }), false); // => false
+
+// assertEqual(eqObjects({ a: { z: 1, x: [1,2,3] }, b: 2, c: {d: {e: 2}, f: 5}, g: [1,2,3]}, { a: { z: 1, x: [1,2,3] }, b: 2, c: {d: {e: 2}, f: 5}, g: [1,2,3]}), true); // => true
