@@ -1,67 +1,4 @@
-const assertEqual = (actual, expected) => {
-  if (actual === expected) {
-    console.log(`✅ Assertion Passed: ${actual} === ${expected}`);
-    return;
-  }
-
-  console.log(`⛔️ Assertion Failed: ${actual} !== ${expected}`);
-};
-
-// *** eqArrays ***
-
-const eqArrays = (arr1, arr2) => {
-  let eqArrVar;
-
-  if (arr1.length !== arr2.length) {
-    return false;
-  }
-
-  for (let i = 0; i < arr1.length; i++) {
-    if (Array.isArray(arr1[i]) && Array.isArray(arr2[i])) {
-      eqArrVar = eqArrays(arr1[i], arr2[i]);
-      if (!eqArrVar) {
-        return false;
-      }
-    } else if (arr1[i] !== arr2[i]) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-
-// *** OLD CODE WITH OBJECT FIRST ***
-// const eqObjects = (object1, object2) => {
-//   let eqObjVar;
-
-//   const obj1 = Object.keys(object1);
-//   const obj2 = Object.keys(object2);
-
-//   if (obj1.length !== obj2.length) {
-//     return false;
-//   }
-
-//   for (let elem in object1) {
-//     if ((typeof object1[elem] === 'object') && (typeof object2[elem] === 'object')) {
-//       eqObjVar = eqObjects(object1[elem], object2[elem]);
-//       if (!eqObjVar) {
-//         return false;
-//       }
-//     } else {
-//       if (Array.isArray(object1[elem]) && Array.isArray(object2[elem])) {
-//         const arrayValue = eqArrays(object1[elem], object2[elem]);
-//         if (!arrayValue) {
-//           return false;
-//         }
-//       }
-//       if (object1[elem] !== object2[elem]) {
-//         return false;
-//       }
-//     }
-//   }
-//   return true;
-// };
+const eqArrays = require('./eqArrays');
 
 const eqObjects = (object1, object2) => {
   let eqObjVar;
@@ -91,7 +28,9 @@ const eqObjects = (object1, object2) => {
   return true;
 };
 
-// TESTS
+module.exports = eqObjects;
+
+// TEST CODE
 
 // const ab = { a: "1", b: "2" };
 // const ba = { b: "2", a: "1" };
