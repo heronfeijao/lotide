@@ -70,19 +70,19 @@ const eqObjects = (object1, object2) => {
       if (!arrayValue) {
         return false;
       }
-    } else {
-      if ((typeof object1[elem] === 'object') && (typeof object2[elem] === 'object')) {
-        eqObjVar = eqObjects(object1[elem], object2[elem]);
-        if (!eqObjVar) {
-          return false;
-        }
-      } else if (object1[elem] !== object2[elem]) {
+    } else if ((typeof object1[elem] === 'object') && (typeof object2[elem] === 'object')) {
+      eqObjVar = eqObjects(object1[elem], object2[elem]);
+      if (!eqObjVar) {
         return false;
       }
+    } else if (object1[elem] !== object2[elem]) {
+      return false;
     }
   }
   return true;
 };
+
+// TESTS
 
 // const ab = { a: "1", b: "2" };
 // const ba = { b: "2", a: "1" };

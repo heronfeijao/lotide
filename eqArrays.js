@@ -1,5 +1,5 @@
 // FUNCTION IMPLEMENTATION
-const assertEqual = function (actual, expected) {
+const assertEqual = function(actual, expected) {
   if (actual === expected) {
     console.log(`✅ Assertion Passed: ${actual} === ${expected}`);
   } else {
@@ -30,20 +30,23 @@ const eqArrays = (arr1, arr2) => {
       return false;
     }
   }
+
   return true;
 };
 
-assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true); // => true
-assertEqual(eqArrays([1, 2, 3], [3, 2, 1]), false); // => false
+// TESTS
 
-assertEqual(eqArrays(["1", "2", "3"], ["1", "2", "3"]), true); // => true
-assertEqual(eqArrays(["1", "2", "3"], ["1", "2", 3]), false); // => false
+// assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true); // => true
+// assertEqual(eqArrays([1, 2, 3], [3, 2, 1]), false); // => false
 
-assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true); // => should PASS
+// assertEqual(eqArrays(["1", "2", "3"], ["1", "2", "3"]), true); // => true
+// assertEqual(eqArrays(["1", "2", "3"], ["1", "2", 3]), false); // => false
 
-assertEqual(eqArrays([[2, 3], [4]], [[2, 3], [4]]), true); // => true
-assertEqual(eqArrays([[2, 3, [5, [6, 7, [8]]]], [4]], [[2, 3, [5, [6, 7, [8]]]], [4]]), true); // => true
+// assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true); // => should PASS
 
-assertEqual((eqArrays([[2, 3], [4]], [[2, 3], [4, 5]])), false); // => false
-assertEqual(eqArrays([[2, 4, [5, [6, 7, [8]]]], [4]], [[2, 3, [5, [6, 7, [8]]]], [4]]), false); // => false
-assertEqual(eqArrays([[2, 3], [4]], [[2, 3], 4]), false); // => false
+// assertEqual(eqArrays([[2, 3], [4]], [[2, 3], [4]]), true); // => true
+// assertEqual(eqArrays([[2, 3, [5, [6, 7, [8]]]], [4]], [[2, 3, [5, [6, 7, [8]]]], [4]]), true); // => true
+
+// assertEqual((eqArrays([[2, 3], [4]], [[2, 3], [4, 5]])), false); // => false
+// assertEqual(eqArrays([[2, 4, [5, [6, 7, [8]]]], [4]], [[2, 3, [5, [6, 7, [8]]]], [4]]), false); // => false
+// assertEqual(eqArrays([[2, 3], [4]], [[2, 3], 4]), false); // => false
